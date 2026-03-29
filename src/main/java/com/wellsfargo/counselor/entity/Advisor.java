@@ -1,10 +1,14 @@
 package com.wellsfargo.counselor.entity;
 
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+import java.util.List;
 
 @Entity
 public class Advisor {
@@ -12,6 +16,9 @@ public class Advisor {
     @Id
     @GeneratedValue()
     private long advisorId;
+
+    @OneToMany(mappedBy = "advisor", cascade = CascadeType.ALL)
+    private List<Client> clients;
 
     @Column(nullable = false)
     private String firstName;
@@ -42,6 +49,14 @@ public class Advisor {
 
     public Long getAdvisorId() {
         return advisorId;
+    }
+
+    public List<Client> getClients() {
+        return clients;
+    }
+
+    public void setClients(List<Client> clients) {
+        this.clients = clients;
     }
 
     public String getFirstName() {
